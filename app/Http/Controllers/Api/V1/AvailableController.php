@@ -3,52 +3,55 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Buyer;
+use App\Models\Available;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 
-class BuyerController extends Controller
+class AvailableController extends Controller
 {
     /**
-     * Display a listing of the Buyers created.
+     * Display a listing quantity available of tickets.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return Buyer::all();
+        $available = Available::first()->qty;
+        $total = Ticket::sum('qty');
+        $result = ($available > $total ) ? $available - $total : $available;
+        return response()->json($result, 201);
     }
 
     /**
-     * Store a newly created resource of Buyer in storage.
+     * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $buyer = Buyer::create($request->all());
-        return response()->json($buyer, 201);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Buyer  $buyer
+     * @param  \App\Models\Available  $available
      * @return \Illuminate\Http\Response
      */
-    public function show(Buyer $buyer)
+    public function show(Available $available)
     {
-        return $buyer;
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Buyer  $buyer
+     * @param  \App\Models\Available  $available
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Buyer $buyer)
+    public function update(Request $request, Available $available)
     {
         //
     }
@@ -56,10 +59,10 @@ class BuyerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Buyer  $buyer
+     * @param  \App\Models\Available  $available
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Buyer $buyer)
+    public function destroy(Available $available)
     {
         //
     }

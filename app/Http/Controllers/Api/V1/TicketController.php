@@ -9,24 +9,25 @@ use Illuminate\Http\Request;
 class TicketController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Tickets and buyers reservations.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return Ticket::all();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage of Buyer and quantity tickets reservation.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $ticket = Ticket::create($request->all());
+        return response()->json($ticket, 201);
     }
 
     /**
